@@ -21,7 +21,10 @@ struct LogInView: View {
 				
 
 			Button {
-				path = [.dashboard]
+				viewModel.logIn(email: viewModel.emailText, password: viewModel.passwordText) {
+					print("User has logged in!")
+					path = [.dashboard]
+				}
 			} label: {
 				Text("Log In")
 					.padding(5)

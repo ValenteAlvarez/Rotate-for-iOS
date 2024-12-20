@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct DashboardView: View {
-	@State var opacity: Double = 0
-	@State var offset: Double = 10
+	let viewModel = ViewModel()
+	
 	@Binding var path: [NavRoutes]
+	
 	
 	
     var body: some View {
@@ -42,13 +43,17 @@ struct DashboardView: View {
 			}
 			.frame(maxWidth: .infinity, maxHeight: 250)
 			.navigationBarBackButtonHidden(true)
-			.offset(y: offset)
-			.opacity(opacity)
-			.onAppear {
-				withAnimation(.spring(duration: 0.6, bounce: 0.8)) {
-					offset = 0
-					opacity = 1
+			
+			List(viewModel.results, id: \.trackId) { item in
+				VStack(alignment: .leading) {
+					Text(item.trackName)
+						.font(.headline)
+					Text(item.collectionName)
+						.font(.subheadline)
 				}
+			}
+			.task {
+				await viewModel.loadData()
 			}
 		}
     }
@@ -85,6 +90,8 @@ struct DashboardCard: View {
 	}
 }
 
+
+//
 //#Preview {
-//    DashboardView()
+//	DashboardView()
 //}

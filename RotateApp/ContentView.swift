@@ -6,11 +6,18 @@
 //
 
 import SwiftUI
+import SwiftData
 
 enum NavRoutes: Hashable {
 	case dashboard
 	case login
 	case signup
+}
+
+@Observable
+class AppState {
+	var isLoggedIn: Bool = false
+	var currentUser: UserModel?
 }
 
 struct ContentView: View {
@@ -26,6 +33,7 @@ struct ContentView: View {
 					case .signup: SignUpView(path: $path)
 				}
 			}
+			.modelContainer(for: [UserModel.self])
 		}
     }
 }

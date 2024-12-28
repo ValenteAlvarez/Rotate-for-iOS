@@ -12,6 +12,6 @@ struct User: Identifiable {
 	let name: String
 	let email: String
 	let isOnLeave: Bool = false
-	let groups: [Group]
-	let assignedTasks: [Task]
+	let groups: [Group] = []
+	let assignedTasks: [Task] = []
 }

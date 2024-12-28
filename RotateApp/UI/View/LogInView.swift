@@ -11,6 +11,10 @@ struct LogInView: View {
 	@State var viewModel = ViewModel()
 	@Binding var path: [NavRoutes]
 	
+	private var validForm: Bool {
+		viewModel.emailText.count > 0 && viewModel.passwordText.count > 0
+	}
+	
 	
     var body: some View {
 		VStack {
@@ -22,7 +26,6 @@ struct LogInView: View {
 
 			Button {
 				viewModel.logIn(email: viewModel.emailText, password: viewModel.passwordText) {
-					print("User has logged in!")
 					path = [.dashboard]
 				}
 			} label: {

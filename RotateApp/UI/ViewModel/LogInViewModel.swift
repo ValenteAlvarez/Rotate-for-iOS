@@ -16,16 +16,13 @@ extension LogInView {
 		var passwordText: String = ""
 		
 		func logIn(email: String, password: String, navigate: @escaping () -> Void) {
-			Auth.auth().signIn(withEmail: email, password: password) { [weak self] result, error in
-				guard let strongSelf = self else { return }
-				
-				if result != nil {
-					navigate()
-				}
-				else {
-					print(error?.localizedDescription ?? " Unknown error logging in")
-				}
+			FirebaseAuthManager.shared.login(email: email, password: password) {
+				navigate()
 			}
+		}
+		
+		func logout() {
+			
 		}
 		
 	}

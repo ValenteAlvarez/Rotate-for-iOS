@@ -11,6 +11,7 @@ import FirebaseAuth
 extension SignUpView {
 	@Observable
 	class ViewModel {
+		
 		var emailText: String = ""
 		var nameText: String = ""
 		var passwordText: String = ""
@@ -23,8 +24,8 @@ extension SignUpView {
 				}
 				
 				else {
-					navigate()
 					
+					navigate()
 					print(result ?? "null result, but a result.")
 				}
 			}

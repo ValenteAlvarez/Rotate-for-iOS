@@ -15,7 +15,7 @@ class UserModel {
 	var email: String
 	var isOnLeave: Bool = false
 	
-	init(id: String, name: String, email: String, isOnLeave: Bool) {
+	init(id: String = UUID().uuidString, name: String, email: String, isOnLeave: Bool) {
 		self.id = id
 		self.name = name
 		self.email = email
@@ -31,7 +31,7 @@ class GroupModel {
 	var id: String
 	var name: String
 	
-	init(id: String, name: String) {
+	init(id: String = UUID().uuidString, name: String) {
 		self.id = id
 		self.name = name
 	}
@@ -47,7 +47,7 @@ class TaskModel {
 	var rotationTime: RotationTimes
 	var difficulty: TaskDifficulty
 	
-	init(id: String, name: String, description: String, groupId: String, isRotating: Bool, rotationTime: RotationTimes, difficulty: TaskDifficulty) {
+	init(id: String = UUID().uuidString, name: String, description: String, groupId: String, isRotating: Bool, rotationTime: RotationTimes, difficulty: TaskDifficulty) {
 		self.id = id
 		self.name = name
 		self.taskDescription = description

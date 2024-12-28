@@ -43,18 +43,6 @@ struct DashboardView: View {
 			}
 			.frame(maxWidth: .infinity, maxHeight: 250)
 			.navigationBarBackButtonHidden(true)
-			
-			List(viewModel.results, id: \.trackId) { item in
-				VStack(alignment: .leading) {
-					Text(item.trackName)
-						.font(.headline)
-					Text(item.collectionName)
-						.font(.subheadline)
-				}
-			}
-			.task {
-				await viewModel.loadData()
-			}
 		}
     }
 }

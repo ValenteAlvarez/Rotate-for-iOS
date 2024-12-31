@@ -16,14 +16,15 @@ extension LogInView {
 		var passwordText: String = ""
 		
 		func logIn(email: String, password: String, navigate: @escaping () -> Void) {
-			FirebaseAuthManager.shared.login(email: email, password: password) {
+			AuthManager.shared.login(email: email, password: password) {
 				navigate()
 			}
 		}
 		
-		func logout() {
-			
+		func logout(navigate: @escaping () -> Void) {
+			AuthManager.shared.logout {
+				navigate()
+			}
 		}
-		
 	}
 }

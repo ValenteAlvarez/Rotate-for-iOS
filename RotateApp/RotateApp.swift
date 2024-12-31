@@ -8,10 +8,10 @@
 import SwiftUI
 import SwiftData
 import FirebaseCore
+import FirebaseFirestore
 
 @main
 struct RotateAppApp: App {
-	
 	init() {
 		FirebaseApp.configure()
 	}

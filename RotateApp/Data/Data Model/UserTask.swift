@@ -15,10 +15,8 @@ enum RotationTimes: String, Codable {
 	case NONE, DAILY, WEEKLY, BIWEEKLY, MONTHLY, CUSTOM
 }
 
-
-
-struct Task {
-	let id: UUID = UUID()
+struct UserTask: Codable {
+	private(set) var id: UUID = UUID()
 	var name: String
 	var description: String = ""
 	var isRotating: Bool = false
@@ -28,7 +26,7 @@ struct Task {
 }
 
 struct TaskEvent {
-	let parentTask: Task
+	let parentTask: UserTask
 	let dueDate: Date
 	let isCompleted: Bool = false
 }

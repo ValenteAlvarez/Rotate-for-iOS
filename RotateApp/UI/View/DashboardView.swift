@@ -12,11 +12,11 @@ struct DashboardView: View {
 	
 	@Binding var path: [NavRoutes]
 	
-	
+		
 	
     var body: some View {
 		VStack {
-			Text("Hello, Valente")
+			Text("Hello, \(viewModel.currentUser?.name ?? "User")")
 				.font(.largeTitle.bold())
 				.frame(maxWidth: .infinity, alignment: .trailing)
 				.padding(.trailing, 10)
@@ -43,6 +43,19 @@ struct DashboardView: View {
 			}
 			.frame(maxWidth: .infinity, maxHeight: 250)
 			.navigationBarBackButtonHidden(true)
+			
+			Button("Print current User") {
+				viewModel.printCurrentUser()
+			}
+			
+			Button("Log Out") {
+				viewModel.logout() {
+					path = [NavRoutes.login]
+				}
+			}
+		}
+		.onAppear {
+			print(AuthManager.shared.currentUser ?? "user is nil")
 		}
     }
 }

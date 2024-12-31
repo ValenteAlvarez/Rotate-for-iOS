@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct Group {
-	let id: String = UUID().uuidString
+struct Group: Codable {
+	private(set) var id: String = UUID().uuidString
 	var name: String
 	var admins: [User] = []
-	var tasks: [Task] = []
+	var tasks: [UserTask] = []
 	var members: [User] = []
-	var taskHistory: [Task] = []
-	var pendingTasks: [Task] = []
-	var completedTasks: [Task] = []
+	var taskHistory: [UserTask] = []
+	var pendingTasks: [UserTask] = []
+	var completedTasks: [UserTask] = []
 }

@@ -20,6 +20,16 @@ struct Result: Decodable {
 extension DashboardView {
 	@Observable
 	class ViewModel {
+		var currentUser: User? = AuthManager.shared.currentUser
 		
+		func logout(navigate: @escaping () -> Void) {
+			AuthManager.shared.logout() {
+				navigate()
+			}
+		}
+		
+		func printCurrentUser() {
+			print(AuthManager.shared.currentUser ?? "No user logged in")
+		}
 	}
 }

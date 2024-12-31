@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct User: Identifiable {
-	let id: String = UUID().uuidString
+struct User: Identifiable, Codable {
+	private(set) var id: String = UUID().uuidString
 	let name: String
 	let email: String
-	let isOnLeave: Bool = false
-	let groups: [Group] = []
-	let assignedTasks: [Task] = []
+	var isOnLeave: Bool = false
+	var groups: [Group]?
+	var assignedTasks: [UserTask]?
 }

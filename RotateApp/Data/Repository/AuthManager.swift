@@ -14,8 +14,8 @@ protocol AuthService {
 }
 
 @Observable
-class FirebaseAuthManager: AuthService {
-	static let shared = FirebaseAuthManager()
+class AuthManager: AuthService {
+	static let shared = AuthManager()
 	
 	private init(currentUser: User? = nil) {
 		self.currentUser = currentUser
@@ -24,14 +24,19 @@ class FirebaseAuthManager: AuthService {
 	private(set) var currentUser: User?
 	
 	func login(email: String, password: String, navigate: @escaping () -> Void) {
-		Auth.auth().signIn(withEmail: email, password: password) { result, error in
-			if let error {
-				print("Error in login \(error.localizedDescription)")
-			}
-			else {
-				print("Login successful \(result?.debugDescription ?? "...")")
-				self.currentUser = User(name: "Tester", email: "test@tex.mx")
-				navigate()
+		Task {
+			do {
+				try await Auth.auth().signIn(withEmail: email, password: password)
+				print("LogIn successful, fetchin User...")
+				
+				if let user = try await FirestoreManager.shared.fetchUser(email: email) {
+					print("User fetched successfully: \(user)")
+					self.currentUser = user
+					navigate()
+				}
+				else {
+					return
+				}
 			}
 		}
 	}
@@ -39,6 +44,7 @@ class FirebaseAuthManager: AuthService {
 	func logout(navigate: @escaping () -> Void) {
 		do {
 			try Auth.auth().signOut()
+			self.currentUser = nil
 			navigate()
 		}
 		catch {

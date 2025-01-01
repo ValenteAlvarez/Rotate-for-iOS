@@ -17,18 +17,8 @@ extension SignUpView {
 		var passwordText: String = ""
 		var repeatPasswordText: String = ""
 		
-		func signUp(email: String, password: String, navigate: @escaping () -> Void) {
-			Auth.auth().createUser(withEmail: email, password: password) { result, error in
-				if let error {
-					return print(error)
-				}
-				
-				else {
-					
-					navigate()
-					print(result ?? "null result, but a result.")
-				}
-			}
+		func signUp(name: String, email: String, password: String, navigate: @escaping () -> Void) {
+			AuthManager.shared.signUp(name: name, email: email.lowercased(), password: password, navigate: navigate)
 		}
 	}
 }

@@ -13,9 +13,20 @@ class FirestoreManager {
 	
 	let db = Firestore.firestore()
 	
+	func createUser(newUser: User) async throws -> Void {
+		Task {
+			do {
+				try db.collection("Users").document(newUser.email).setData(from: newUser)
+			}
+			catch let error {
+				print("Error writing to Firestore \(error)")
+			}
+		}
+	}
+	
 	func fetchUser(email: String) async throws -> User? {
 		print("fetching user \(email.lowercased())")
-		let dir = db.collection("Users").document("val@tec.mx")
+		let dir = db.collection("Users").document(email.lowercased())
 		
 		do {
 			let user = try await dir.getDocument(as: User.self)

@@ -27,7 +27,7 @@ class AuthManager: AuthService {
 		Task {
 			do {
 				try await Auth.auth().signIn(withEmail: email, password: password)
-				print("LogIn successful, fetchin User...")
+				print("LogIn successful, fetching User...")
 				
 				if let user = try await FirestoreManager.shared.fetchUser(email: email) {
 					print("User fetched successfully: \(user)")
@@ -37,6 +37,27 @@ class AuthManager: AuthService {
 				else {
 					return
 				}
+			}
+			catch {
+				print("Error on login. \(error)")
+			}
+		}
+	}
+	
+	func signUp(name: String, email: String, password: String, navigate: @escaping () -> Void) {
+		Task {
+			do {
+				print("logging in...")
+				try await Auth.auth().createUser(withEmail: email, password: password)
+				print("Created auth user")
+				let user = User(name: name, email: email)
+				try await FirestoreManager.shared.createUser(newUser: user)
+				self.currentUser = user
+				print("Set current user")
+				navigate()
+			}
+			catch {
+				print("Error on signup. \(error)")
 			}
 		}
 	}

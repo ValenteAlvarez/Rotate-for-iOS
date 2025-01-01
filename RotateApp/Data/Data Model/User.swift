@@ -12,6 +12,14 @@ struct User: Identifiable, Codable {
 	let name: String
 	let email: String
 	var isOnLeave: Bool = false
-	var groups: [Group]?
+	var groups: [UserGroup]?
 	var assignedTasks: [UserTask]?
+	
+	enum CodingKeys: String, CodingKey {
+		case name
+		case email
+		case isOnLeave
+		case groups
+		case assignedTasks
+	}
 }

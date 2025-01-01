@@ -18,12 +18,14 @@ struct SignUpView: View {
 			Text("Welcome.")
 				.font(.title)
 			FormTextField(label: "Display Name", text: $viewModel.nameText)
+				.textInputAutocapitalization(.none)
+				.keyboardType(.emailAddress)
 			FormTextField(label: "Email", text: $viewModel.emailText)
-			FormTextField(label: "Password", text: $viewModel.passwordText)
-			FormTextField(label: "Repeat Password", text: $viewModel.repeatPasswordText)
+			SecureFormTextField(label: "Password", text: $viewModel.passwordText)
+			SecureFormTextField(label: "Repeat Password", text: $viewModel.repeatPasswordText)
 			
 			CapsuleButton(text: "Sign Up", onClick: {
-				viewModel.signUp(email: viewModel.emailText, password: viewModel.passwordText) {
+				viewModel.signUp(name: viewModel.nameText, email: viewModel.emailText, password: viewModel.passwordText) {
 					path = [.dashboard]
 				}
 			})

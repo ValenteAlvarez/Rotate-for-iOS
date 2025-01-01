@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Group: Codable {
+struct UserGroup: Codable {
 	private(set) var id: String = UUID().uuidString
 	var name: String
 	var admins: [User] = []

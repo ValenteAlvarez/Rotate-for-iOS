@@ -26,7 +26,9 @@ struct LogInView: View {
 
 			Button {
 				viewModel.logIn(email: viewModel.emailText, password: viewModel.passwordText) {
-					path = [.dashboard]
+					withAnimation {
+						path = [.dashboard]
+					}
 				}
 			} label: {
 				Text("Log In")
@@ -49,4 +51,17 @@ struct LogInView: View {
 		}
 		.padding(10)
     }
+}
+
+#Preview {
+	struct LogInPreview: View {
+		@State var path: [NavRoutes] = [.dashboard]
+		
+		var body: some View {
+			LogInView(path: $path)
+		}
+		
+	}
+	
+	return LogInPreview()
 }
